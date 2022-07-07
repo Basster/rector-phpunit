@@ -1,5 +1,6 @@
 {
     "name": "basster/symfony-php-unit-rector",
+    "description": "Rector upgrades rules for PHPUnit and Symfony KernelTestCases",
     "type": "rector-extension",
     "minimum-stability": "dev",
     "prefer-stable": true,
