@@ -15,10 +15,8 @@ final class PhpUnitKernelTestToSlowGroupRectorTest extends AbstractRectorTestCas
 {
     /**
      * @dataProvider provideData()
-     *
-     * @test
      */
-    public function refactor(SmartFileInfo $fileInfo): void
+    public function test(SmartFileInfo $fileInfo): void
     {
         $this->doTestFileInfo($fileInfo);
     }

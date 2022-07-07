@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Core\NonPhpFile\Rector\RenameClassNonPhpRector;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 return static function (RectorConfig $rectorConfig): void {
     $services = $rectorConfig->services();

@@ -6,12 +6,16 @@ namespace Basster\SymfonyPhpUnitRector\Rector\Class_;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Reflection\ReflectionResolver;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
+/**
+ * @see \Basster\SymfonyPhpUnitRector\Tests\Rector\Class_\PhpUnitKernelTestToSlowGroupRector\PhpUnitKernelTestToSlowGroupRectorTest
+ */
 final class PhpUnitKernelTestToSlowGroupRector extends AbstractRector
 {
     /**
@@ -21,8 +25,7 @@ final class PhpUnitKernelTestToSlowGroupRector extends AbstractRector
 
     public function __construct(
         private readonly ReflectionResolver $reflectionResolver
-    )
-    {
+    ) {
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -35,20 +38,17 @@ final class PhpUnitKernelTestToSlowGroupRector extends AbstractRector
         return [Class_::class];
     }
 
-    /**
-     * @param Class_ $node
-     */
-    public function refactor(Node $node): ?Node
+    public function refactor(Class_|Node $node): ?Node
     {
         $className = $this->getName($node);
-        if (null === $className) {
+        if ($className === null) {
             return null;
         }
         if ($this->shouldSkipClass($node)) {
             return null;
         }
         $classReflection = $this->reflectionResolver->resolveClassReflection($node);
-        if (!$classReflection instanceof ClassReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return null;
         }
 
@@ -62,14 +62,16 @@ final class PhpUnitKernelTestToSlowGroupRector extends AbstractRector
         return $node;
     }
 
-    private function shouldSkipClass(Class_ $class): bool
+    private function shouldSkipClass(Node|Class_ $class): bool
     {
-        // skip classes that don't extend anything.
-        return !$class->extends;
+        if (! $class instanceof Class_) {
+            return true;
+        }
+        return $class->extends === null;
     }
 
     private function createGroupPhpDocTagNode(): PhpDocTagNode
     {
-        return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@group', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode(self::GROUP));
+        return new PhpDocTagNode('@group', new GenericTagValueNode(self::GROUP));
     }
 }
