@@ -1,0 +1,71 @@
+{
+    "name": "basster/symfony-php-unit-rector",
+    "type": "rector-extension",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "symfony/framework-bundle": "^4.4|^5.0|^6.0"
+    },
+    "require-dev": {
+        "rector/rector-src": "dev-main",
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.8",
+        "symplify/phpstan-rules": "^11.0",
+        "symplify/phpstan-extensions": "^11.0",
+        "symplify/easy-coding-standard": "^11.0",
+        "symplify/rule-doc-generator": "^11.0",
+        "rector/phpstan-rules": "^0.5",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-strict-rules": "^1.2",
+        "phpstan/phpstan-webmozart-assert": "^1.1",
+        "symplify/vendor-patches": "^11.0",
+        "symplify/monorepo-builder": "^11.0",
+        "symplify/easy-ci": "^11.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Basster\\SymfonyPhpUnitRector\\": "src"
+        }
+    },
+    "autoload-dev":{
+        "psr-4": {
+            "Basster\\SymfonyPhpUnitRector\\Tests\\": "tests" 
+        },
+        "classmap": [
+            "stubs"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Ole Rößner",
+            "email": "ole@roessner.it"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "rector/extension-installer": true,
+            "phpstan/extension-installer": true,
+            "cweagans/composer-patches": true
+        }
+    },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse --ansi"
+    },
+    "extra": {
+        "enable-patching": true,
+        "branch-alias": {
+            "dev-main": "0.11-dev"
+        },
+        "rector": {
+            "includes": [
+                "config/config.php"
+            ]
+        }
+    },
+    "conflict": {
+        "rector/rector": "<0.13"
+    }
+}
