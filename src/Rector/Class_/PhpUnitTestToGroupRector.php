@@ -50,15 +50,17 @@ final class PhpUnitTestToGroupRector extends AbstractRector implements Configura
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Add `@group <group>` docblock annotation to classes inheriting from given targetClass', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Add "@group <group>" docblock annotation to classes inheriting from given targetClass',
+            [
+                new ConfiguredCodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 /**
  * @group slow
  */
@@ -66,37 +68,32 @@ class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestC
 {
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::TAG => [
-                        new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'),
-                    ],
-                ]
-            ),
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
-// \Symfony\Bundle\FrameworkBundle\Test\WebTestCase inherits from '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'
+                    ,
+                    [new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')]
+                ),
+                new ConfiguredCodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
+    // \Symfony\Bundle\FrameworkBundle\Test\WebTestCase inherits from '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 /**
  * @group slow
  */
 class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
+    // \Symfony\Bundle\FrameworkBundle\Test\WebTestCase inherits from '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::TAG => [
-                        new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'),
-                    ],
-                ]
-            ),
-        ]);
+                    ,
+                    [new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')]
+                ),
+
+            ]
+        );
     }
 
     public function getNodeTypes(): array
