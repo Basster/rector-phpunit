@@ -64,7 +64,7 @@ CODE_SAMPLE
 /**
  * @group slow
  */
-class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
 }
 CODE_SAMPLE
@@ -83,7 +83,7 @@ CODE_SAMPLE
 /**
  * @group slow
  */
-class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
     // \Symfony\Bundle\FrameworkBundle\Test\WebTestCase inherits from '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'
 }

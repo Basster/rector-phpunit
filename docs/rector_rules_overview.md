@@ -24,11 +24,10 @@ return static function (RectorConfig $rectorConfig): void {
 ↓
 
 ```diff
--class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 +/**
 + * @group slow
 + */
-+class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+ class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
  {
  }
 ```
@@ -51,11 +50,10 @@ return static function (RectorConfig $rectorConfig): void {
 ↓
 
 ```diff
--class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 +/**
 + * @group slow
 + */
-+class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+ class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
  {
      // \Symfony\Bundle\FrameworkBundle\Test\WebTestCase inherits from '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'
  }
