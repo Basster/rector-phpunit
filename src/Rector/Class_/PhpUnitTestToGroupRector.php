@@ -14,6 +14,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Reflection\ReflectionResolver;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -69,7 +70,7 @@ class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 }
 CODE_SAMPLE
                     ,
-                    [new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')]
+                    [new PhpUnitTestToGroup('slow', KernelTestCase::class)]
                 ),
                 new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'
@@ -89,7 +90,7 @@ class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 }
 CODE_SAMPLE
                     ,
-                    [new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')]
+                    [new PhpUnitTestToGroup('slow', KernelTestCase::class)]
                 ),
 
             ]
@@ -107,9 +108,11 @@ CODE_SAMPLE
         if ($className === null) {
             return null;
         }
+
         if ($this->shouldSkipClass($node)) {
             return null;
         }
+
         $classReflection = $this->reflectionResolver->resolveClassReflection($node);
         if (! $classReflection instanceof ClassReflection) {
             return null;
@@ -143,6 +146,7 @@ CODE_SAMPLE
         if (! $class instanceof Class_) {
             return true;
         }
+
         return $class->extends === null && $class->implements === null;
     }
 
