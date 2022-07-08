@@ -51,7 +51,7 @@ final class PhpUnitTestToGroupRector extends AbstractRector implements Configura
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Add "@group <group>" docblock annotation to classes inheriting from given targetClass',
+            'Add "@group <group>" docblock annotation to classes inheriting from or implementing given targetClass or interface',
             [
                 new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'
@@ -143,7 +143,7 @@ CODE_SAMPLE
         if (! $class instanceof Class_) {
             return true;
         }
-        return $class->extends === null;
+        return $class->extends === null && $class->implements === null;
     }
 
     private function createGroupPhpDocTagNode(): PhpDocTagNode
