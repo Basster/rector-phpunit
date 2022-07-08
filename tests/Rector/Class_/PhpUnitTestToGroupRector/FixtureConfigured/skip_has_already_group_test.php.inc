@@ -1,6 +1,6 @@
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\FixtureConfigured;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\FixtureConfigured;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

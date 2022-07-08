@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Basster\PhpUnitToGroupRector\Rector\Class_;
+namespace Basster\Rector\PhpUnit\Rector\Class_;
 
-use Basster\PhpUnitToGroupRector\ValueObject\PhpUnitClassToGroupConfig;
+use Basster\Rector\PhpUnit\ValueObject\PhpUnitTestToGroup;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
@@ -19,14 +19,20 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
 /**
- * @see \Basster\SymfonyPhpUnitRector\Tests\Rector\Class_\PhpUnitKernelTestToSlowGroupRector\PhpUnitKernelTestToSlowGroupRectorTest
+ * @see \Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\PhpUnitTestToGroupRectorTest
+ * @see \Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\ConfiguredPhpUnitClassToGroupRectorTest
+ * @see \Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\FullyConfiguredPhpUnitClassToGroupRectorTest
  */
-final class PhpUnitClassToGroupRector extends AbstractRector implements ConfigurableRectorInterface
+final class PhpUnitTestToGroupRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const DEFAULT_GROUP = 'slow';
+
+    /**
+     * @var string
+     */
     public const DEFAULT_TARGET_CLASSNAME = '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase';
 
     /**
@@ -34,28 +40,60 @@ final class PhpUnitClassToGroupRector extends AbstractRector implements Configur
      */
     private const TAG = 'group';
 
-    private PhpUnitClassToGroupConfig $config;
+    private PhpUnitTestToGroup $config;
 
     public function __construct(
         private readonly ReflectionResolver $reflectionResolver
     ) {
-        $this->config = new PhpUnitClassToGroupConfig(self::DEFAULT_GROUP, self::DEFAULT_TARGET_CLASSNAME);
+        $this->config = new PhpUnitTestToGroup(self::DEFAULT_GROUP, self::DEFAULT_TARGET_CLASSNAME);
     }
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('foobar', [
+        return new RuleDefinition('Add `@group <group>` docblock annotation to classes inheriting from given targetClass', [
             new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
-
+class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+{
+}
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-
+/**
+ * @group slow
+ */
+class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+{
+}
 CODE_SAMPLE
                 ,
                 [
-                    self::TAG => [new PhpUnitClassToGroupConfig('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')],
+                    self::TAG => [
+                        new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'),
+                    ],
+                ]
+            ),
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
+// \Symfony\Bundle\FrameworkBundle\Test\WebTestCase inherits from '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'
+class SomeKernelTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+{
+}
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+/**
+ * @group slow
+ */
+class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+{
+}
+CODE_SAMPLE
+                ,
+                [
+                    self::TAG => [
+                        new PhpUnitTestToGroup('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase'),
+                    ],
                 ]
             ),
         ]);
@@ -98,7 +136,7 @@ CODE_SAMPLE
 
     public function configure(array $configuration): void
     {
-        Assert::allIsInstanceOf($configuration, PhpUnitClassToGroupConfig::class);
+        Assert::allIsInstanceOf($configuration, PhpUnitTestToGroup::class);
         Assert::count($configuration, 1);
         $this->config = $configuration[0];
     }

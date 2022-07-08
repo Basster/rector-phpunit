@@ -1,6 +1,6 @@
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\FixtureConfigured;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\FixtureConfigured;
 
 /**
  * This is here
@@ -13,7 +13,7 @@ class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestC
 -----
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\FixtureConfigured;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\FixtureConfigured;
 
 /**
  * This is here

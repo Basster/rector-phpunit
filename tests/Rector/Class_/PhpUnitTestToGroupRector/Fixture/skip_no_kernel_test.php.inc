@@ -1,6 +1,6 @@
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\Fixture;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\Fixture;
 
 use PHPUnit\Framework\TestCase;
 

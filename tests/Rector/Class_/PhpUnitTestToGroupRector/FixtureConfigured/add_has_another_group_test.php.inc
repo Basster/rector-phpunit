@@ -1,6 +1,6 @@
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\FixtureConfigured;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\FixtureConfigured;
 
 /**
  * This is here
@@ -14,7 +14,7 @@ class AddHasAnotherGroupTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTes
 -----
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\FixtureConfigured;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\FixtureConfigured;
 
 /**
  * This is here

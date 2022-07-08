@@ -1,6 +1,6 @@
 {
-    "name": "basster/symfony-php-unit-rector",
-    "description": "Rector upgrades rules for PHPUnit and Symfony KernelTestCases",
+    "name": "basster/rector-phpunit",
+    "description": "Rector upgrades rules for PHPUnit",
     "type": "rector-extension",
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -27,12 +27,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Basster\\PhpUnitToGroupRector\\": "src"
+            "Basster\\Rector\\PhpUnit\\": "src"
         }
     },
     "autoload-dev":{
         "psr-4": {
-            "Basster\\PhpUnitToGroupRector\\Tests\\": "tests"
+            "Basster\\Rector\\PhpUnit\\Tests\\": "tests"
         },
         "classmap": [
             "stubs"

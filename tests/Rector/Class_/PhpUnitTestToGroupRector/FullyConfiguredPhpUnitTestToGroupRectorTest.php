@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
@@ -11,7 +11,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @internal
  */
-final class FullyConfiguredPhpUnitClassToGroupRectorTest extends AbstractRectorTestCase
+final class FullyConfiguredPhpUnitTestToGroupRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

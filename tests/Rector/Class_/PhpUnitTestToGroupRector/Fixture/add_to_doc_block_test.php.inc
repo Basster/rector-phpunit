@@ -1,10 +1,7 @@
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\Fixture;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\Fixture;
 
-/**
- * This is here
- */
 class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
 }
@@ -13,10 +10,9 @@ class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestC
 -----
 <?php
 
-namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\Fixture;
+namespace Basster\Rector\PhpUnit\Tests\Rector\Class_\PhpUnitTestToGroupRector\Fixture;
 
 /**
- * This is here
  * @group slow
  */
 class AddToDocBlockTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase

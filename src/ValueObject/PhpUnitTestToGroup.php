@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Basster\PhpUnitToGroupRector\ValueObject;
+namespace Basster\Rector\PhpUnit\ValueObject;
 
-final class PhpUnitClassToGroupConfig
+final class PhpUnitTestToGroup
 {
     public function __construct(
         public readonly string $name,
