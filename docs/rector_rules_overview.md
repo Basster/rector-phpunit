@@ -2,7 +2,7 @@
 
 ## PhpUnitTestToGroupRector
 
-Add `"@group` <group>" docblock annotation to classes inheriting from given targetClass
+Add `"@group` <group>" docblock annotation to classes inheriting from or implementing given targetClass or interface
 
 :wrench: **configure it!**
 
