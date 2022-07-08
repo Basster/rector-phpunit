@@ -27,12 +27,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Basster\\SymfonyPhpUnitRector\\": "src"
+            "Basster\\PhpUnitToGroupRector\\": "src"
         }
     },
     "autoload-dev":{
         "psr-4": {
-            "Basster\\SymfonyPhpUnitRector\\Tests\\": "tests"
+            "Basster\\PhpUnitToGroupRector\\Tests\\": "tests"
         },
         "classmap": [
             "stubs"

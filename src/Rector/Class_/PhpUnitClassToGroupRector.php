@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Basster\SymfonyPhpUnitRector\Rector\Class_;
+namespace Basster\PhpUnitToGroupRector\Rector\Class_;
 
-use Basster\SymfonyPhpUnitRector\ValueObject\PhpUnitKernelTestToSlowGroup;
+use Basster\PhpUnitToGroupRector\ValueObject\PhpUnitClassToGroupConfig;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
@@ -21,24 +21,25 @@ use Webmozart\Assert\Assert;
 /**
  * @see \Basster\SymfonyPhpUnitRector\Tests\Rector\Class_\PhpUnitKernelTestToSlowGroupRector\PhpUnitKernelTestToSlowGroupRectorTest
  */
-final class PhpUnitKernelTestToSlowGroupRector extends AbstractRector implements ConfigurableRectorInterface
+final class PhpUnitClassToGroupRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const DEFAULT_GROUP = 'slow';
+    public const DEFAULT_TARGET_CLASSNAME = '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase';
 
     /**
      * @var string
      */
     private const TAG = 'group';
 
-    private PhpUnitKernelTestToSlowGroup $group;
+    private PhpUnitClassToGroupConfig $config;
 
     public function __construct(
         private readonly ReflectionResolver $reflectionResolver
     ) {
-        $this->group = new PhpUnitKernelTestToSlowGroup(self::DEFAULT_GROUP);
+        $this->config = new PhpUnitClassToGroupConfig(self::DEFAULT_GROUP, self::DEFAULT_TARGET_CLASSNAME);
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -54,7 +55,7 @@ CODE_SAMPLE
 CODE_SAMPLE
                 ,
                 [
-                    self::TAG => [new PhpUnitKernelTestToSlowGroup('slow')],
+                    self::TAG => [new PhpUnitClassToGroupConfig('slow', '\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')],
                 ]
             ),
         ]);
@@ -79,7 +80,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $classReflection->isSubclassOf('\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')) {
+        if (! $classReflection->isSubclassOf($this->config->targetClassname)) {
             return null;
         }
 
@@ -97,9 +98,9 @@ CODE_SAMPLE
 
     public function configure(array $configuration): void
     {
-        Assert::allIsInstanceOf($configuration, PhpUnitKernelTestToSlowGroup::class);
+        Assert::allIsInstanceOf($configuration, PhpUnitClassToGroupConfig::class);
         Assert::count($configuration, 1);
-        $this->group = $configuration[0];
+        $this->config = $configuration[0];
     }
 
     private function shouldSkipClass(Node|Class_ $class): bool
@@ -112,7 +113,7 @@ CODE_SAMPLE
 
     private function createGroupPhpDocTagNode(): PhpDocTagNode
     {
-        return new PhpDocTagNode('@' . self::TAG, new GenericTagValueNode($this->group->name));
+        return new PhpDocTagNode('@' . self::TAG, new GenericTagValueNode($this->config->name));
     }
 
     /**
@@ -131,7 +132,7 @@ CODE_SAMPLE
             $possibleGroupName = $groupPhpDocTagNode->value->value;
 
             // annotation already exists
-            if ($possibleGroupName === $this->group->name) {
+            if ($possibleGroupName === $this->config->name) {
                 return true;
             }
         }

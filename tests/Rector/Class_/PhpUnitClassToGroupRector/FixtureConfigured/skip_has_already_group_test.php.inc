@@ -1,11 +1,11 @@
 <?php
 
-namespace Basster\SymfonyPhpUnitRector\Tests\Rector\Class_\PhpUnitKernelTestToSlowGroupRector\Fixture;
+namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector\FixtureConfigured;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * @group slow
+ * @group kernel
  */
 class HasAlreadyGroupTest extends KernelTestCase
 {

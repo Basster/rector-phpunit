@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Basster\SymfonyPhpUnitRector\Tests\Rector\Class_\PhpUnitKernelTestToSlowGroupRector;
+namespace Basster\PhpUnitToGroupRector\Tests\Rector\Class_\PhpUnitClassToGroupRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
@@ -11,7 +11,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @internal
  */
-final class PhpUnitKernelTestToSlowGroupRectorTest extends AbstractRectorTestCase
+final class PhpUnitClassToGroupRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -31,6 +31,6 @@ final class PhpUnitKernelTestToSlowGroupRectorTest extends AbstractRectorTestCas
 
     public function provideConfigFilePath(): string
     {
-        return __DIR__ . '/config/configured_rule.php';
+        return __DIR__ . '/config/default_rule.php';
     }
 }
